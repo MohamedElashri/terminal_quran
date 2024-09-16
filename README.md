@@ -34,13 +34,13 @@ chmod +x ~/terminal_quran.sh
 To ensure the script can be run from any directory, add its location to your PATH in your shell configuration file. If you're using Bash, add it to your .bashrc file: 
 
 ``` bash
-echo 'export PATH="$HOME:$PATH"' >> ~/.bashrc
+echo '$HOME/terminal_quran.sh"' >> ~/.bashrc
 ```
 
 If you're using Zsh, add it to your .zshrc file: 
 
 ```bash
-echo 'export PATH="$HOME:$PATH"' >> ~/.zshrc
+echo '$HOME/terminal_quran.sh"' >> ~/.zshrc
 ```
 
 Then, source your shell configuration file to apply the changes. For Bash: 
