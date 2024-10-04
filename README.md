@@ -6,12 +6,14 @@ Terminal Quran is a simple Bash script that prints a random verse from the Quran
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [Configuration](#configuration)
+- [Screenshot](#screenshot)
 - [Contributing](#contributing)
 - [License](#license)
 
 ## Installation
 
-To use this script, you need to have Bash installed on your system. Most Linux distributions come with Bash pre-installed. If you're using Windows, you can run Bash scripts using WSL (Windows Subsystem for Linux) or Git Bash. It can work with ZSH (the default on macOS).
+To use this script, you need to have Bash installed on your system. Most Linux distributions come with Bash pre-installed. If you're using Windows, you can run Bash scripts using WSL (Windows Subsystem for Linux) or Git Bash. It also works with ZSH (the default on macOS).
 
 For installation in your `$HOME` directory:
 
@@ -33,31 +35,55 @@ chmod +x ~/terminal_quran.sh
 
 To ensure the script can be run from any directory, add its location to your PATH in your shell configuration file:
 
-- If you're using Bash, add it to your `.bashrc` file:
+- **Bash (Linux/macOS):**
+
+  Add the following line to your `.bashrc` or `.bash_profile` file:
 
   ```bash
-  echo '$HOME/terminal_quran.sh' >> ~/.bashrc
+  if [[ $- == *i* && "$RUN_QURAN_VERSE_ON_STARTUP" == "true" ]]; then
+    ~/terminal_quran.sh
+  fi
   ```
 
-- If you're using Zsh, add it to your `.zshrc` file:
+- **Zsh (Linux/macOS):**
+
+  Add the following line to your `.zshrc` file:
 
   ```bash
-  echo '$HOME/terminal_quran.sh' >> ~/.zshrc
+  if [[ $- == *i* && "$RUN_QURAN_VERSE_ON_STARTUP" == "true" ]]; then
+    ~/terminal_quran.sh
+  fi
   ```
 
-Then, source your shell configuration file to apply the changes:
+- **Fish (Linux/macOS):**
 
-- For Bash:
+  Add the following line to your `~/.config/fish/config.fish` file:
+
+  ```fish
+  if test "$RUN_QURAN_VERSE_ON_STARTUP" = "true"
+    ~/terminal_quran.sh
+  end
+  ```
+
+- **Windows (WSL):**
+
+  Add the following line to your `.bashrc` or `.bash_profile` file:
 
   ```bash
-  source ~/.bashrc
+  if [[ $- == *i* && "$RUN_QURAN_VERSE_ON_STARTUP" == "true" ]]; then
+    ~/terminal_quran.sh
+  fi
   ```
 
-- For Zsh:
+## Configuration
 
-  ```bash
-  source ~/.zshrc
-  ```
+To control whether the script runs automatically at terminal startup, set the following environment variable:
+
+```bash
+export RUN_QURAN_VERSE_ON_STARTUP=true
+```
+
+Add this line to your shell configuration file to enable the script to run at startup. Set it to `false` if you do not want the script to run automatically.
 
 ## Usage
 
@@ -73,6 +99,16 @@ For help or usage instructions:
 ./terminal_quran.sh -h
 ```
 
+## Screenshot
+
+This is an example of how it looks like on iTerm2 on macOS:
+
+![iTerm2](images/iterm2.png)
+
+And this is how it looks on Tabby on macOS:
+
+![Tabby](images/tabby.png)
+
 ## Contributing
 
 Contributions are welcome! If you have a verse you'd like to add, feel free to open a pull request. Please ensure that any verses you add are accurate and include the surah and verse numbers.
@@ -80,4 +116,3 @@ Contributions are welcome! If you have a verse you'd like to add, feel free to o
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
-
