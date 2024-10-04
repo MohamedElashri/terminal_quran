@@ -43,8 +43,10 @@ BLUE="\033[94m" # Blue color
 MAGENTA="\033[95m" # Magenta color
 RESET="\033[0m" # Reset color
 
-# Calculate the number of columns in the terminal
-COLS=$(tput cols)
+# Calculate the number of columns in the terminal once
+if [ -z "$COLS" ]; then
+    COLS=$(tput cols)
+fi
 
 # Define the header message
 header_message="This is a self message from Quran:"
@@ -97,33 +99,47 @@ Options:
 
 To display a random Quran verse each time you open a terminal, follow these steps:
 
-1. Save this script as `quran_message.sh` in your home directory (e.g., `~/quran_message.sh`).
+1. Save this script as `terminal_quran.sh` in your home directory (e.g., `~/terminal_quran.sh`).
 2. Make the script executable by running the command:
-   chmod +x ~/quran_message.sh
+   chmod +x ~/terminal_quran.sh
 3. Add the script to your shell's startup file:
 
    - **Bash** (Linux/macOS):
      Add the following line to your `~/.bashrc` or `~/.bash_profile` file:
      ```
-     ~/quran_message.sh
+     if [[ $- == *i* && "$RUN_QURAN_VERSE_ON_STARTUP" == "true" ]]; then
+       ~/terminal_quran.sh
+     fi
      ```
    - **Zsh** (Linux/macOS):
      Add the following line to your `~/.zshrc` file:
      ```
-     ~/quran_message.sh
+     if [[ $- == *i* && "$RUN_QURAN_VERSE_ON_STARTUP" == "true" ]]; then
+       ~/terminal_quran.sh
+     fi
      ```
    - **Fish** (Linux/macOS):
      Add the following line to your `~/.config/fish/config.fish` file:
      ```
-     ~/quran_message.sh
+     if test "$RUN_QURAN_VERSE_ON_STARTUP" = "true"
+       ~/terminal_quran.sh
+     end
      ```
    - **Windows (WSL)**:
      Add the following line to your `~/.bashrc` or `~/.bash_profile` file:
      ```
-     ~/quran_message.sh
+     if [[ $- == *i* && "$RUN_QURAN_VERSE_ON_STARTUP" == "true" ]]; then
+       ~/terminal_quran.sh
+     fi
      ```
 
-After adding the script to your startup file, it will display a random verse each time you open a new terminal window.
+4. Set the environment variable to control startup behavior:
+   ```
+   export RUN_QURAN_VERSE_ON_STARTUP=true
+   ```
+   Add the above line to your shell configuration file to enable the script to run at startup. Set it to `false` if you do not want the script to run automatically.
+
+After adding the script to your startup file, it will display a random verse each time you open a new terminal window if the environment variable is set to `true`.
 EOF
 }
 
